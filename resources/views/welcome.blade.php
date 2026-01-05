@@ -204,37 +204,41 @@
                 </div>
             </div>
             <div class="row gx-30">
+                <!-- Youtube Project -->
                 <div class="col-lg-4 col-md-6">
                     <div class="portfolio-box2">
                         <div class="portfolio-box2_img">
-                            <img src="{{ asset('assets/img/portfolio/2-1.jpg') }}" alt="img">
+                            <img src="{{ $youtubeProject ? asset('storage/' . $youtubeProject->image) : asset('assets/img/portfolio/2-1.jpg') }}" alt="Youtube Project" style="height: 250px; width: 100%; object-fit: cover;">
                         </div>
                         <div class="portfolio-box2-details">
-                            <span class="portfolio-box2_subtitle">Konservasi Hutan</span>
-                            <h4 class="portfolio-box2_title"><a href="{{ route('projects') }}">Hutan Lestari</a></h4>
+                            <span class="portfolio-box2_subtitle">Youtube Channel</span>
+                            <h4 class="portfolio-box2_title"><a href="{{ route('projects', ['category' => 'Youtube']) }}">{{ $youtubeProject ? $youtubeProject->title : 'Youtube Content' }}</a></h4>
                         </div>
                     </div>
                 </div>
+
+                <!-- Instagram Project -->
                 <div class="col-lg-4 col-md-6">
                     <div class="portfolio-box2">
                         <div class="portfolio-box2_img">
-                            <img src="{{ asset('assets/img/portfolio/2-2.jpg') }}" alt="img">
+                            <img src="{{ $instagramProject ? asset('storage/' . $instagramProject->image) : asset('assets/img/portfolio/2-2.jpg') }}" alt="Instagram Project" style="height: 250px; width: 100%; object-fit: cover;">
                         </div>
                         <div class="portfolio-box2-details">
-                            <span class="portfolio-box2_subtitle">Keberlanjutan Energi</span>
-                            <h4 class="portfolio-box2_title"><a href="{{ route('projects') }}">Energi Terbarukan</a></h4>
+                            <span class="portfolio-box2_subtitle">Instagram Feed</span>
+                            <h4 class="portfolio-box2_title"><a href="{{ route('projects', ['category' => 'Instagram']) }}">{{ $instagramProject ? $instagramProject->title : 'Instagram Content' }}</a></h4>
                         </div>
                     </div>
                 </div>
+
+                <!-- Tiktok Project -->
                 <div class="col-lg-4 col-md-6">
                     <div class="portfolio-box2">
                         <div class="portfolio-box2_img">
-                            <img src="{{ asset('assets/img/portfolio/2-3.jpg') }}" alt="img">
+                            <img src="{{ $tiktokProject ? asset('storage/' . $tiktokProject->image) : asset('assets/img/portfolio/2-3.jpg') }}" alt="Tiktok Project" style="height: 250px; width: 100%; object-fit: cover;">
                         </div>
                         <div class="portfolio-box2-details">
-                            <span class="portfolio-box2_subtitle">Sumber Daya Air</span>
-                            <h4 class="portfolio-box2_title"><a href="{{ route('projects') }}">Pengelolaan Air Bersih</a>
-                            </h4>
+                            <span class="portfolio-box2_subtitle">Tiktok Viral</span>
+                            <h4 class="portfolio-box2_title"><a href="{{ route('projects', ['category' => 'Tiktok']) }}">{{ $tiktokProject ? $tiktokProject->title : 'Tiktok Content' }}</a></h4>
                         </div>
                     </div>
                 </div>
@@ -274,26 +278,45 @@
                 </div>
                 <div class="col-lg-7">
                     <div class="testiomonial-wrap-2">
-                        <div class="testi-box"
-                            style="padding: 30px; border-radius: 16px; background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                            <div class="quote-icon mb-3">
-                                <img src="{{ asset('assets/img/icon/quote2-1.svg') }}" alt="quote" style="width: 40px;">
-                            </div>
-                            <p class="testi-box_text"
-                                style="font-size: 15px; line-height: 1.7; color: #333; margin-bottom: 20px;">
-                                "Symbiosis banyak membantu kami di departemen CSR dalam pendampingan riset dan publikasi
-                                program sesuai kebutuhan internal dengan data yang relevan dan tepat guna sehingga
-                                program-program kami dapat lebih berdampak secara berkelanjutan."
-                            </p>
-                            <div class="testi-box-profile text-center mt-4">
-                                <h4 class="testi-profile-title" style="font-size: 16px; margin-bottom: 5px;">Oscar Muda
-                                    Kusuma</h4>
-                                <span class="testi-profile-desig"
-                                    style="font-size: 14px; color: #666; display: block; margin-bottom: 12px;">
-                                    Senior Comdev PT Pertamina EP Sangatta
-                                </span>
-                                <img src="{{ asset('assets/img/testimonial/testimoni1.png') }}" alt="Oscar Muda Kusuma"
-                                    style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid #eee;">
+                        <!-- Testimonial Marquee (Single Row) -->
+                        <div class="marquee-wrapper">
+                            <div class="marquee-content">
+                                <!-- Original Set -->
+                                @for($i = 0; $i < 3; $i++)
+                                <div class="marquee-item" style="width: 400px; padding: 0 15px;">
+                                    <div class="testi-box" style="padding: 30px; border-radius: 16px; background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.08); width: 100%;">
+                                        <div class="quote-icon mb-3">
+                                            <img src="{{ asset('assets/img/icon/quote2-1.svg') }}" alt="quote" style="width: 40px;">
+                                        </div>
+                                        <p class="testi-box_text" style="font-size: 15px; line-height: 1.7; color: #333; margin-bottom: 20px;">
+                                            "Symbiosis banyak membantu kami di departemen CSR dalam pendampingan riset dan publikasi program sesuai kebutuhan internal."
+                                        </p>
+                                        <div class="testi-box-profile text-center mt-4">
+                                            <h4 class="testi-profile-title" style="font-size: 16px; margin-bottom: 5px;">Oscar Muda Kusuma</h4>
+                                            <span class="testi-profile-desig" style="font-size: 14px; color: #666; display: block; margin-bottom: 12px;">Senior Comdev PT Pertamina EP Sangatta</span>
+                                            <img src="{{ asset('assets/img/testimonial/testimoni1.png') }}" alt="Oscar Muda Kusuma" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid #eee;">
+                                        </div>
+                                    </div>
+                                </div>
+                                @endfor
+                                <!-- Duplicate Set -->
+                                @for($i = 0; $i < 3; $i++)
+                                <div class="marquee-item" style="width: 400px; padding: 0 15px;">
+                                    <div class="testi-box" style="padding: 30px; border-radius: 16px; background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.08); width: 100%;">
+                                        <div class="quote-icon mb-3">
+                                            <img src="{{ asset('assets/img/icon/quote2-1.svg') }}" alt="quote" style="width: 40px;">
+                                        </div>
+                                        <p class="testi-box_text" style="font-size: 15px; line-height: 1.7; color: #333; margin-bottom: 20px;">
+                                            "Symbiosis banyak membantu kami di departemen CSR dalam pendampingan riset dan publikasi program sesuai kebutuhan internal."
+                                        </p>
+                                        <div class="testi-box-profile text-center mt-4">
+                                            <h4 class="testi-profile-title" style="font-size: 16px; margin-bottom: 5px;">Oscar Muda Kusuma</h4>
+                                            <span class="testi-profile-desig" style="font-size: 14px; color: #666; display: block; margin-bottom: 12px;">Senior Comdev PT Pertamina EP Sangatta</span>
+                                            <img src="{{ asset('assets/img/testimonial/testimoni1.png') }}" alt="Oscar Muda Kusuma" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid #eee;">
+                                        </div>
+                                    </div>
+                                </div>
+                                @endfor
                             </div>
                         </div>
                     </div>
@@ -390,13 +413,90 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                @for($i = 1; $i <= 8; $i++)
-                    <div class="col-auto">
-                        <div class="client-logo">
-                            <img src="{{ asset('assets/img/client/' . $i . '.png') }}" alt="client">
-                        </div>
+                <style>
+                    .marquee-wrapper {
+                        overflow: hidden;
+                        width: 100%;
+                        position: relative;
+                        margin-bottom: 20px;
+                    }
+                    
+                    .marquee-content {
+                        display: flex;
+                        width: max-content;
+                        animation: marquee-scroll 20s linear infinite;
+                    }
+                    
+                    .marquee-content.reverse {
+                        animation: marquee-scroll-reverse 20s linear infinite;
+                    }
+                    
+                    .marquee-item {
+                        flex: 0 0 auto;
+                        width: 200px; /* Adjust based on image size */
+                        padding: 0 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                    
+                    .marquee-item img {
+                        max-width: 100%;
+                        height: auto;
+                        opacity: 0.8;
+                        transition: opacity 0.3s;
+                    }
+                    
+                    .marquee-item img:hover {
+                        opacity: 1;
+                    }
+
+                    @keyframes marquee-scroll {
+                        0% { transform: translateX(0); }
+                        100% { transform: translateX(-50%); } /* Move half width because of duplication */
+                    }
+                    
+                    @keyframes marquee-scroll-reverse {
+                        0% { transform: translateX(-50%); }
+                        100% { transform: translateX(0); }
+                    }
+                </style>
+
+                <!-- Top Row: Scroll Left -->
+                <div class="marquee-wrapper">
+                    <div class="marquee-content">
+                        <!-- Original Set -->
+                        @for($i = 1; $i <= 8; $i++)
+                            <div class="marquee-item">
+                                <img src="{{ asset('assets/img/client/' . $i . '.png') }}" alt="client">
+                            </div>
+                        @endfor
+                        <!-- Duplicate Set for Seamless Loop -->
+                        @for($i = 1; $i <= 8; $i++)
+                            <div class="marquee-item">
+                                <img src="{{ asset('assets/img/client/' . $i . '.png') }}" alt="client">
+                            </div>
+                        @endfor
                     </div>
-                @endfor
+                </div>
+
+                <!-- Bottom Row: Scroll Right -->
+                <div class="marquee-wrapper">
+                    <div class="marquee-content reverse">
+                        <!-- Original Set -->
+                        @for($i = 1; $i <= 8; $i++)
+                            <div class="marquee-item">
+                                <img src="{{ asset('assets/img/client/' . $i . '.png') }}" alt="client">
+                            </div>
+                        @endfor
+                        <!-- Duplicate Set for Seamless Loop -->
+                        @for($i = 1; $i <= 8; $i++)
+                            <div class="marquee-item">
+                                <img src="{{ asset('assets/img/client/' . $i . '.png') }}" alt="client">
+                            </div>
+                        @endfor
+                    </div>
+                </div>
             </div>
         </div>
     </div>

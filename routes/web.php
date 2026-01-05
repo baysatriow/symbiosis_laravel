@@ -11,7 +11,11 @@ use App\Http\Controllers\Admin\MessageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    $youtubeProject = \App\Models\Project::where('category', 'Youtube')->latest()->first();
+    $instagramProject = \App\Models\Project::where('category', 'Instagram')->latest()->first();
+    $tiktokProject = \App\Models\Project::where('category', 'Tiktok')->latest()->first();
+
+    return view('welcome', compact('youtubeProject', 'instagramProject', 'tiktokProject'));
 })->name('home');
 
 Route::get('/about', function () {
@@ -31,8 +35,16 @@ Route::get('/projects', function (\Illuminate\Http\Request $request) {
 
     if ($request->has('search')) {
         $search = $request->get('search');
-        $query->where('title', 'like', "%{$search}%")
-            ->orWhere('description', 'like', "%{$search}%");
+        $query->where(function($q) use ($search) {
+            $q->where('title', 'like', "%{$search}%")
+              ->orWhere('description', 'like', "%{$search}%")
+              ->orWhere('category', 'like', "%{$search}%");
+        });
+    }
+
+    if ($request->has('category')) {
+        $category = $request->get('category');
+        $query->where('category', $category);
     }
 
     $projects = $query->paginate(6);
