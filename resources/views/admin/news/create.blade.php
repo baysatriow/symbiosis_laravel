@@ -46,26 +46,31 @@
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">Image <span class="text-red-500">*</span></label>
                     
-                    <!-- Image Preview -->
-                    <div x-show="imageUrl" class="mb-4">
-                        <div class="relative w-full max-w-sm aspect-video rounded-2xl overflow-hidden border-4 border-white shadow-lg ring-1 ring-gray-100">
-                            <img :src="imageUrl" class="w-full h-full object-cover">
-                            <button type="button" @click="imageUrl = null; $refs.imageInput.value = ''" 
-                                    class="absolute top-2 right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-red-600 transition-colors">
-                                <i class="fas fa-times text-xs"></i>
-                            </button>
-                        </div>
-                    </div>
-
                     <div class="flex items-center justify-center w-full">
-                        <label for="image" class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-200 border-dashed rounded-2xl cursor-pointer bg-gray-50 hover:bg-emerald-50 hover:border-emerald-200 transition-all group">
-                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                        <label for="image" class="relative flex flex-col items-center justify-center w-full h-64 border-2 border-gray-200 border-dashed rounded-2xl cursor-pointer bg-gray-50 hover:bg-emerald-50 hover:border-emerald-200 transition-all group overflow-hidden">
+                            <!-- Show this when NO image is selected -->
+                            <div x-show="!imageUrl" class="flex flex-col items-center justify-center pt-5 pb-6">
                                 <div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-gray-400 group-hover:text-emerald-500 transition-colors mb-3">
                                     <i class="fas fa-image text-xl"></i>
                                 </div>
                                 <p class="text-sm text-gray-500"><span class="font-bold text-emerald-600">Klik untuk upload</span> atau drag & drop</p>
                                 <p class="text-xs text-gray-400 mt-1 uppercase tracking-wider font-bold">PNG, JPG, GIF (MAX 2MB)</p>
                             </div>
+
+                            <!-- Show this when an image IS selected -->
+                            <template x-if="imageUrl">
+                                <div class="absolute inset-0 w-full h-full">
+                                    <img :src="imageUrl" class="w-full h-full object-cover">
+                                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                        <p class="text-white font-bold text-sm bg-black/20 px-4 py-2 rounded-lg backdrop-blur-sm">Ganti Gambar</p>
+                                    </div>
+                                    <button type="button" @click.prevent="imageUrl = null; $refs.imageInput.value = ''" 
+                                            class="absolute top-3 right-3 z-10 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-red-600 transition-all hover:scale-110">
+                                        <i class="fas fa-times text-xs"></i>
+                                    </button>
+                                </div>
+                            </template>
+
                             <input id="image" name="image" type="file" class="hidden" accept="image/*" required @change="previewImage" x-ref="imageInput">
                         </label>
                     </div>

@@ -58,7 +58,7 @@
                                 <td class="px-6 py-4 text-center">
                                     <div class="flex items-center justify-center gap-1">
                                         <a href="{{ route('admin.projects.edit', $project) }}"
-                                            class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all"
+                                            class="w-10 h-10 flex items-center justify-center text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all"
                                             title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
@@ -66,7 +66,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="button" onclick="confirmDelete('delete-project-{{ $project->id }}', '{{ $project->title }}')"
-                                                class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
+                                                class="w-10 h-10 flex items-center justify-center text-gray-500 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
                                                 title="Hapus">
                                                 <i class="fas fa-trash"></i>
                                             </button>
