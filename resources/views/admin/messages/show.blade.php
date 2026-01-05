@@ -4,69 +4,79 @@
 @section('subtitle', 'Detail pesan dari pengunjung')
 
 @section('content')
-    <div class="max-w-2xl">
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-            <!-- Header -->
-            <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
-                <div class="flex items-center gap-3">
-                    <a href="{{ route('admin.messages.index') }}" class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-all">
-                        <i class="fas fa-arrow-left"></i>
-                    </a>
-                    <div>
-                        <h3 class="font-semibold text-gray-900">Detail Pesan</h3>
-                        <p class="text-sm text-gray-500">{{ $message->created_at->diffForHumans() }}</p>
-                    </div>
-                </div>
-            </div>
+    <div class="space-y-6">
+    <x-page-header title="Detail Pesan" subtitle="Melihat detail korespondensi dari {{ $message->name }}">
+        <x-slot:actions>
+            <a href="{{ route('admin.messages.index') }}"
+                class="inline-flex items-center gap-2 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium rounded-xl transition-all">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </a>
+        </x-slot:actions>
+    </x-page-header>
 
-            <div class="p-6 space-y-6">
+    <div class="max-w-2xl">
+        <x-content-card>
+            <div class="space-y-8">
                 <!-- Sender Info -->
-                <div class="flex items-start gap-4">
-                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white flex items-center justify-center font-bold text-lg shadow-md">
+                <div class="flex items-center gap-5 p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center font-bold text-2xl shadow-lg ring-4 ring-white">
                         {{ strtoupper(substr($message->name, 0, 2)) }}
                     </div>
                     <div class="flex-1">
-                        <h4 class="text-lg font-semibold text-gray-900">{{ $message->name }}</h4>
-                        <p class="text-sm text-gray-500">{{ $message->email }}</p>
+                        <h4 class="text-xl font-bold text-gray-900">{{ $message->name }}</h4>
+                        <div class="flex items-center gap-3 mt-1 text-sm text-gray-500">
+                            <span class="flex items-center gap-1.5"><i class="fas fa-envelope text-emerald-500"></i> {{ $message->email }}</span>
+                            <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                            <span class="flex items-center gap-1.5"><i class="fas fa-clock text-amber-500"></i> {{ $message->created_at->diffForHumans() }}</span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Subject -->
-                <div class="bg-[#e0f2f1] rounded-xl px-4 py-3">
-                    <label class="text-xs font-medium text-[#196164] uppercase tracking-wider">Subject</label>
-                    <p class="mt-1 text-gray-900 font-medium">{{ $message->subject ?: 'Tanpa Subjek' }}</p>
+                <div class="relative group">
+                    <div class="absolute -left-6 top-0 bottom-0 w-1 bg-emerald-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <label class="text-[11px] font-bold text-emerald-600 uppercase tracking-[0.2em] mb-2 block">Subject</label>
+                    <p class="text-lg text-gray-900 font-bold leading-tight">{{ $message->subject ?: 'Tanpa Subjek' }}</p>
                 </div>
-
-                <!-- Timestamp -->
-                <div class="flex items-center gap-2 text-sm text-gray-500">
-                    <i class="fas fa-clock"></i>
-                    <span>Diterima pada {{ $message->created_at->format('d M Y') }} pukul {{ $message->created_at->format('H:i') }} WIB</span>
-                </div>
-
-                <hr class="border-gray-100">
 
                 <!-- Message Content -->
                 <div>
-                    <label class="text-xs font-medium text-gray-500 uppercase tracking-wider">Pesan</label>
-                    <div class="mt-3 p-5 bg-gray-50 rounded-2xl text-gray-800 whitespace-pre-wrap leading-relaxed">{{ $message->message }}</div>
+                    <label class="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-4 block">Message body</label>
+                    <div class="p-6 bg-gray-50 rounded-2xl text-gray-700 whitespace-pre-wrap leading-relaxed border border-gray-100 font-inter shadow-inner">
+                        {{ $message->message }}
+                    </div>
+                </div>
+
+                <!-- Meta Info -->
+                <div class="flex flex-wrap items-center gap-4 py-4 px-5 bg-blue-50/50 rounded-xl border border-blue-100 text-xs text-blue-700 font-medium">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-calendar-alt opacity-70"></i>
+                        <span>Diterima pada {{ $message->created_at->format('d M Y') }}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-clock opacity-70"></i>
+                        <span>Pukul {{ $message->created_at->format('H:i') }} WIB</span>
+                    </div>
                 </div>
 
                 <!-- Actions -->
-                <div class="flex items-center gap-3 pt-6 border-t border-gray-100">
+                <div class="flex flex-wrap items-center gap-3 pt-6 border-t border-gray-100">
                     <a href="mailto:{{ $message->email }}"
-                        class="px-6 py-3 bg-gradient-to-r from-[#196164] to-[#2a8a8e] text-white text-sm font-medium rounded-xl hover:shadow-lg transition-all">
-                        <i class="fas fa-reply mr-2"></i> Balas via Email
+                        class="flex-1 md:flex-none inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold rounded-xl transition-all shadow-lg shadow-emerald-200">
+                        <i class="fas fa-reply"></i> Balas via Email
                     </a>
-                    <form id="delete-message-{{ $message->id }}" action="{{ route('admin.messages.destroy', $message) }}" method="POST" class="inline">
+                    
+                    <form id="delete-message-{{ $message->id }}" action="{{ route('admin.messages.destroy', $message) }}" method="POST" class="flex-1 md:flex-none">
                         @csrf
                         @method('DELETE')
                         <button type="button" onclick="confirmDelete('delete-message-{{ $message->id }}', 'pesan dari {{ $message->name }}')"
-                            class="px-6 py-3 bg-red-50 text-red-600 text-sm font-medium rounded-xl hover:bg-red-100 transition-all">
-                            <i class="fas fa-trash mr-2"></i> Hapus
+                            class="w-full inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-red-600 text-sm font-bold rounded-xl border border-red-100 hover:bg-red-50 hover:border-red-200 transition-all">
+                            <i class="fas fa-trash-alt"></i> Hapus Pesan
                         </button>
                     </form>
                 </div>
             </div>
-        </div>
+        </x-content-card>
     </div>
+</div>
 @endsection
