@@ -131,53 +131,71 @@
                         <form action="{{ route('contact.store') }}" method="POST">
                             @csrf
                             <div class="row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-4">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="name" id="name" placeholder="Nama"
+                                        <label for="name" style="display: block; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; font-size: 14px;">Nama Lengkap</label>
+                                        <input type="text" class="form-control" name="name" id="name" placeholder="Masukkan nama Anda"
                                             required
-                                            style="padding: 15px 20px; border-radius: 10px; border: 1px solid #eee; background: #f9f9f9; width: 100%;">
+                                            style="padding: 18px 25px; border-radius: 12px; border: 1px solid #eee; background: #f9f9f9; width: 100%; transition: all 0.3s; outline: none;">
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-4">
                                     <div class="form-group">
-                                        <input type="email" class="form-control" name="email" id="email" placeholder="Email"
+                                        <label for="email" style="display: block; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; font-size: 14px;">Alamat Email</label>
+                                        <input type="email" class="form-control" name="email" id="email" placeholder="Masukkan email Anda"
                                             required
-                                            style="padding: 15px 20px; border-radius: 10px; border: 1px solid #eee; background: #f9f9f9; width: 100%;">
+                                            style="padding: 18px 25px; border-radius: 12px; border: 1px solid #eee; background: #f9f9f9; width: 100%; transition: all 0.3s; outline: none;">
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-4">
                                     <div class="form-group">
+                                        <label for="phone" style="display: block; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; font-size: 14px;">Nomor Telepon</label>
                                         <input type="tel" class="form-control" name="phone" id="phone"
-                                            placeholder="Nomor telepon"
-                                            style="padding: 15px 20px; border-radius: 10px; border: 1px solid #eee; background: #f9f9f9; width: 100%;">
+                                            placeholder="Masukkan nomor telepon"
+                                            style="padding: 18px 25px; border-radius: 12px; border: 1px solid #eee; background: #f9f9f9; width: 100%; transition: all 0.3s; outline: none;">
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-4">
                                     <div class="form-group">
-                                        <select name="subject" id="subject" class="form-select"
-                                            style="padding: 15px 20px; border-radius: 10px; border: 1px solid #eee; background: #f9f9f9; width: 100%; color: #666; height: 58px;">
+                                        <label for="subject" style="display: block; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; font-size: 14px;">Subjek</label>
+                                        <select name="subject" id="subject" class="form-select shadow-none"
+                                            style="padding: 18px 25px; border-radius: 12px; border: 1px solid #eee; background: #f9f9f9; width: 100%; color: #666; height: 62px; transition: all 0.3s; appearance: none; cursor: pointer;">
                                             <option value="" disabled selected>Pilih Subjek</option>
-                                            <option value="Consultation">Konsultasi</option>
-                                            <option value="Partnership">Partnership</option>
+                                            <option value="Consultation">Konsultasi Project</option>
+                                            <option value="Partnership">Partnership Bisnis</option>
                                             <option value="General">Pertanyaan Umum</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-12 mb-4">
+                                <div class="col-12 mb-5">
                                     <div class="form-group">
+                                        <label for="message" style="display: block; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; font-size: 14px;">Pesan Anda</label>
                                         <textarea name="message" id="message" cols="30" rows="5" class="form-control"
-                                            placeholder="Isi pesan kamu" required
-                                            style="padding: 15px 20px; border-radius: 10px; border: 1px solid #eee; background: #f9f9f9; width: 100%;"></textarea>
+                                            placeholder="Tuliskan pesan atau pertanyaan Anda di sini..." required
+                                            style="padding: 18px 25px; border-radius: 12px; border: 1px solid #eee; background: #f9f9f9; width: 100%; transition: all 0.3s; outline: none;"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <button type="submit" class="btn w-100"
-                                        style="background: #196164; color: #fff; padding: 15px; border-radius: 10px; font-weight: 700; border: none; transition: background 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                                        Kirim <i class="fas fa-arrow-right"></i>
+                                        style="background: #196164; color: #fff; padding: 20px; border-radius: 15px; font-weight: 800; border: none; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: 0 10px 30px rgba(25, 97, 100, 0.15);">
+                                        Kirim Pesan Sekarang <i class="fas fa-paper-plane" style="font-size: 16px;"></i>
                                     </button>
                                 </div>
                             </div>
                         </form>
+
+                        <style>
+                            .form-control:focus, .form-select:focus {
+                                background: #fff !important;
+                                border-color: #196164 !important;
+                                box-shadow: 0 0 0 4px rgba(25, 97, 100, 0.05) !important;
+                            }
+                            .contact-form-wrap button:hover {
+                                background: #0a2627 !important;
+                                transform: translateY(-3px);
+                                box-shadow: 0 15px 40px rgba(25, 97, 100, 0.25) !important;
+                            }
+                        </style>
                     </div>
                 </div>
             </div>

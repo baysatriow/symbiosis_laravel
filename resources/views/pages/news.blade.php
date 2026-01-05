@@ -33,11 +33,14 @@
             <div class="row gx-40">
                 <!-- Left Column: News Grid -->
                 <div class="col-lg-8">
-                    <!-- Search Result Info (Optional) -->
+                    <!-- Search Result Info -->
                     @if(request('search'))
-                        <div class="alert alert-info mb-4"
-                            style="background: white; border-left: 4px solid #196164; border-radius: 4px;">
-                            Menampilkan hasil pencarian untuk: "<strong>{{ request('search') }}</strong>"
+                        <div class="d-flex justify-content-between align-items-center mb-4"
+                            style="background: white; border-left: 4px solid #196164; border-radius: 8px; padding: 15px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
+                            <div style="font-size: 15px; color: #444;">
+                                Hasil pencarian: "<strong>{{ request('search') }}</strong>"
+                            </div>
+                            <a href="{{ route('news') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3">Reset</a>
                         </div>
                     @endif
 
@@ -45,41 +48,51 @@
                         @forelse($news as $item)
                             <div class="col-md-6">
                                 <div class="blog-card style2"
-                                    style="background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s; height: 100%;">
+                                    style="background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: all 0.3s; height: 100%; border: 1px solid #f0f0f0;">
                                     <div class="blog-img overflow-hidden" style="position: relative;">
-                                        <img src="{{ Storage::url($item->image) }}" alt="{{ $item->title }}" class="w-100"
-                                            style="height: 250px; object-fit: cover; transition: transform 0.5s;">
-                                        <div class="blog-date"
-                                            style="position: absolute; top: 15px; left: 15px; background: #fbbf24; padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: 700; color: #1a1a1a; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-                                            {{ $item->created_at->format('d M, Y') }}
+                                        <a href="{{ route('news.show', $item->slug) }}">
+                                            <img src="{{ Storage::url($item->image) }}" alt="{{ $item->title }}" class="w-100"
+                                                style="height: 250px; object-fit: cover; transition: transform 0.6s;">
+                                        </a>
+                                        <div style="position: absolute; top: 15px; left: 15px; z-index: 2;">
+                                            <span style="background: #fbbf24; color: #1a1a1a; padding: 6px 16px; border-radius: 50px; font-size: 11px; font-weight: 800; display: block; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                                                {{ $item->published_at->format('d M, Y') }}
+                                            </span>
                                         </div>
                                     </div>
-                                    <div class="blog-content" style="padding: 25px;">
-                                        <h3 class="blog-title h5 mb-2">
-                                            <a href="#"
-                                                style="text-decoration: none; color: #1a1a1a; font-weight: 700;">{{ $item->title }}</a>
+                                    <div class="blog-content" style="padding: 30px;">
+                                        <h3 class="blog-title h5 mb-3">
+                                            <a href="{{ route('news.show', $item->slug) }}"
+                                                style="text-decoration: none; color: #1a1a1a; font-weight: 800; line-height: 1.4; transition: color 0.3s;">{{ $item->title }}</a>
                                         </h3>
-                                        <p class="blog-text mb-3"
-                                            style="color: #666; font-size: 14px; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                                            {{ Str::limit(strip_tags($item->content), 100) }}
+                                        <p class="blog-text mb-4"
+                                            style="color: #666; font-size: 14px; line-height: 1.7; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                            {{ Str::limit(strip_tags($item->content), 120) }}
                                         </p>
-                                        <a href="#" class="link-btn"
-                                            style="color: #196164; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                                            Read More <i class="fas fa-arrow-right"></i>
-                                        </a>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div style="font-size: 12px; color: #888; font-weight: 500;">
+                                                <i class="far fa-user me-1" style="color: #196164;"></i> {{ $item->author->name ?? 'Admin' }}
+                                            </div>
+                                            <a href="{{ route('news.show', $item->slug) }}" class="link-btn"
+                                                style="color: #196164; font-weight: 700; font-size: 13px; text-decoration: none; display: flex; align-items: center; gap: 5px;">
+                                                Read More <i class="fas fa-arrow-right" style="font-size: 11px;"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         @empty
                             <div class="col-12 text-center py-5">
-                                <i class="far fa-newspaper mb-3" style="font-size: 48px; color: #ccc;"></i>
-                                <h4 class="text-muted">Belum ada berita terbaru.</h4>
+                                <div style="background: #fff; padding: 60px; border-radius: 30px; border: 1px dashed #ddd;">
+                                    <h4 class="text-muted" style="font-weight: 700;">Belum ada berita terbaru.</h4>
+                                    <a href="{{ route('news') }}" class="btn mt-3 rounded-pill px-4" style="background: #196164; color: #fff;">Lihat Semua Berita</a>
+                                </div>
                             </div>
                         @endforelse
                     </div>
 
                     <!-- Pagination -->
-                    <div class="pagination-area text-center mb-4">
+                    <div class="pagination-area d-flex justify-content-center mb-5">
                         {{ $news->appends(request()->query())->links('pagination::bootstrap-5') }}
                     </div>
                 </div>
@@ -126,7 +139,7 @@
                                             </div>
                                             <h4 class="recent-post-title"
                                                 style="font-size: 15px; font-weight: 600; line-height: 1.4; margin: 0;">
-                                                <a href="#"
+                                                <a href="{{ route('news.show', $recent->slug) }}"
                                                     style="text-decoration: none; color: #1a1a1a;">{{ Str::limit($recent->title, 40) }}</a>
                                             </h4>
                                         </div>

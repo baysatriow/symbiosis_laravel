@@ -42,7 +42,7 @@ Route::get('/projects', function (\Illuminate\Http\Request $request) {
         });
     }
 
-    if ($request->has('category')) {
+    if ($request->filled('category')) {
         $category = $request->get('category');
         $query->where('category', $category);
     }
@@ -53,20 +53,36 @@ Route::get('/projects', function (\Illuminate\Http\Request $request) {
     return view('pages.projects', compact('projects', 'recentProjects'));
 })->name('projects');
 
+Route::get('/projects/{project}', function (\App\Models\Project $project) {
+    $recentProjects = \App\Models\Project::where('id', '!=', $project->id)->latest()->take(3)->get();
+    return view('pages.projects_show', compact('project', 'recentProjects'));
+})->name('projects.show');
+
 Route::get('/news', function (\Illuminate\Http\Request $request) {
-    $query = \App\Models\News::latest();
+    $query = \App\Models\News::published()->latest();
 
     if ($request->has('search')) {
         $search = $request->get('search');
-        $query->where('title', 'like', "%{$search}%")
-            ->orWhere('content', 'like', "%{$search}%");
+        $query->where(function($q) use ($search) {
+            $q->where('title', 'like', "%{$search}%")
+              ->orWhere('content', 'like', "%{$search}%");
+        });
     }
 
     $news = $query->paginate(6);
-    $recentNews = \App\Models\News::latest()->take(5)->get();
+    $recentNews = \App\Models\News::published()->latest()->take(5)->get();
 
     return view('pages.news', compact('news', 'recentNews'));
 })->name('news');
+
+Route::get('/news/{news:slug}', function (\App\Models\News $news) {
+    $recentNews = \App\Models\News::published()
+        ->where('id', '!=', $news->id)
+        ->latest()
+        ->take(3)
+        ->get();
+    return view('pages.news_show', compact('news', 'recentNews'));
+})->name('news.show');
 
 Route::get('/contact', function () {
     return view('pages.contact');

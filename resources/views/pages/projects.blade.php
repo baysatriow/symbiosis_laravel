@@ -33,10 +33,21 @@
                 <!-- Left Column: Project Grid -->
                 <div class="col-lg-8">
                     <!-- Search Result Info (Optional) -->
-                    @if(request('search'))
-                        <div class="alert alert-info mb-4"
-                            style="background: white; border-left: 4px solid #196164; border-radius: 4px;">
-                            Menampilkan hasil pencarian untuk: "<strong>{{ request('search') }}</strong>"
+                    @if(request('search') || request('category'))
+                        <div class="d-flex justify-content-between align-items-center mb-4"
+                            style="background: white; border-left: 4px solid #196164; border-radius: 8px; padding: 15px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
+                            <div style="font-size: 15px; color: #444;">
+                                @if(request('search'))
+                                    Hasil pencarian: "<strong>{{ request('search') }}</strong>"
+                                @endif
+                                @if(request('search') && request('category'))
+                                    dan 
+                                @endif
+                                @if(request('category'))
+                                    Kategori: <span class="badge bg-emerald-100 text-emerald-700 px-3 py-2 rounded-pill">{{ request('category') }}</span>
+                                @endif
+                            </div>
+                            <a href="{{ route('projects') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3">Reset</a>
                         </div>
                     @endif
 
@@ -44,43 +55,55 @@
                         @forelse($projects as $project)
                             <div class="col-md-6">
                                 <div class="project-card style2"
-                                    style="background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s; height: 100%;">
+                                    style="background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); height: 100%; border: 1px solid #f0f0f0;">
                                     <div class="project-img overflow-hidden" style="position: relative;">
-                                        <img src="{{ Storage::url($project->image) }}" alt="{{ $project->title }}" class="w-100"
-                                            style="height: 250px; object-fit: cover; transition: transform 0.5s;">
+                                        <a href="{{ route('projects.show', $project->id) }}">
+                                            <img src="{{ Storage::url($project->image) }}" alt="{{ $project->title }}" class="w-100"
+                                                style="height: 250px; object-fit: cover; transition: transform 0.6s;">
+                                        </a>
                                         <!-- Category Badge -->
-                                        <span
-                                            style="position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.9); padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; color: #196164; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-                                            {{ $project->category ?? 'Project' }}
-                                        </span>
+                                        <div style="position: absolute; top: 15px; left: 15px; z-index: 2;">
+                                            <span style="background: rgba(255,255,255,0.95); padding: 6px 16px; border-radius: 50px; font-size: 11px; font-weight: 800; color: #196164; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                                                {{ $project->category ?? 'Project' }}
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div class="project-content" style="padding: 25px;">
-                                        <h3 class="project-title h5 mb-2">
-                                            <a href="#"
-                                                style="text-decoration: none; color: #1a1a1a; font-weight: 700;">{{ $project->title }}</a>
+                                    <div class="project-content" style="padding: 30px;">
+                                        <h3 class="project-title h5 mb-3">
+                                            <a href="{{ route('projects.show', $project->id) }}"
+                                                style="text-decoration: none; color: #1a1a1a; font-weight: 800; line-height: 1.4; transition: color 0.3s;">{{ $project->title }}</a>
                                         </h3>
-                                        <p class="project-desc mb-3"
-                                            style="color: #666; font-size: 14px; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                        <p class="project-desc mb-4"
+                                            style="color: #666; font-size: 14px; line-height: 1.7; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
                                             {{ $project->description }}
                                         </p>
-                                        @if($project->subtitle)
-                                            <div class="project-meta text-muted" style="font-size: 13px;">
-                                                <i class="far fa-folder me-1"></i> {{ $project->subtitle }}
-                                            </div>
-                                        @endif
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            @if($project->subtitle)
+                                                <div class="project-meta" style="font-size: 12px; color: #888; font-weight: 500;">
+                                                    <i class="far fa-folder-open me-1" style="color: #196164;"></i> {{ $project->subtitle }}
+                                                </div>
+                                            @endif
+                                            <a href="{{ route('projects.show', $project->id) }}" style="color: #196164; font-weight: 700; font-size: 13px; text-decoration: none; display: flex; align-items: center; gap: 5px;">
+                                                Detail <i class="fas fa-arrow-right" style="font-size: 11px;"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         @empty
                             <div class="col-12 text-center py-5">
-                                <i class="fas fa-box-open mb-3" style="font-size: 48px; color: #ccc;"></i>
-                                <h4 class="text-muted">Belum ada project yang ditemukan.</h4>
+                                <div style="background: #fff; padding: 60px; border-radius: 30px; border: 1px dashed #ddd;">
+                                    <img src="{{ asset('assets/img/icon/empty.svg') }}" alt="Empty" style="width: 120px; opacity: 0.3; margin-bottom: 20px;">
+                                    <h4 class="text-muted" style="font-weight: 700;">Belum ada project yang ditemukan.</h4>
+                                    <p class="text-muted">Coba gunakan kata kunci lain atau reset filter.</p>
+                                    <a href="{{ route('projects') }}" class="btn mt-3 rounded-pill px-4" style="background: #196164; color: #fff;">Lihat Semua Project</a>
+                                </div>
                             </div>
                         @endforelse
                     </div>
 
                     <!-- Pagination -->
-                    <div class="pagination-area text-center mb-4">
+                    <div class="pagination-area d-flex justify-content-center mb-5">
                         {{ $projects->appends(request()->query())->links('pagination::bootstrap-5') }}
                     </div>
                 </div>
@@ -89,70 +112,66 @@
                 <div class="col-lg-4">
                     <aside class="sidebar-area">
                         <!-- Cari Project -->
-                        <div class="widget widget_search"
-                            style="background: #fff; padding: 30px; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.03);">
+                        <div class="widget shadow-sm"
+                            style="background: #fff; padding: 35px; border-radius: 24px; margin-bottom: 30px; border: 1px solid #f0f0f0;">
                             <h3 class="widget_title"
-                                style="font-size: 20px; font-weight: 700; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 15px; color: #196164;">
-                                Cari Project</h3>
-                            <form class="search-form" action="{{ route('projects') }}" method="GET"
-                                style="position: relative; display: flex;">
-                                <input type="text" name="search" placeholder="Search..." value="{{ request('search') }}"
-                                    style="width: 100%; padding: 15px; border: 1px solid #eee; border-radius: 8px; font-size: 14px; background: #f9f9f9;">
-                                <button type="submit"
-                                    style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #196164;">
-                                    <i class="fas fa-search"></i>
-                                </button>
+                                style="font-size: 20px; font-weight: 800; margin-bottom: 25px; color: #1a1a1a; display: flex; align-items: center; gap: 10px;">
+                                <i class="fas fa-search" style="color: #196164; font-size: 16px;"></i> Cari Project</h3>
+                            <form class="search-form" action="{{ route('projects') }}" method="GET">
+                                <div class="position-relative">
+                                    <input type="text" name="search" placeholder="Masukkan kata kunci..." value="{{ request('search') }}"
+                                        style="width: 100%; padding: 16px 20px; border: 1px solid #eee; border-radius: 14px; font-size: 14px; background: #f9f9f9; outline: none; transition: all 0.3s;">
+                                    <button type="submit"
+                                        style="position: absolute; right: 8px; top: 8px; background: #196164; border: none; color: #fff; width: 42px; height: 42px; border-radius: 10px; transition: all 0.3s;">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
                             </form>
                         </div>
 
                         <!-- Kategori -->
-                        <div class="widget widget_categories"
-                            style="background: #fff; padding: 30px; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.03);">
+                        <div class="widget shadow-sm"
+                            style="background: #fff; padding: 35px; border-radius: 24px; margin-bottom: 30px; border: 1px solid #f0f0f0;">
                             <h3 class="widget_title"
-                                style="font-size: 20px; font-weight: 700; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 15px; color: #196164;">
-                                Kategori</h3>
-                            <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 12px;">
-                                <li>
-                                    <a href="#" class="category-btn"
-                                        style="background: linear-gradient(to right, #ffffff, #f9f9f9); border: 1px solid #eee; padding: 15px 20px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; color: #333; transition: all 0.3s; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
-                                        <span style="display: flex; align-items: center; gap: 10px;">
-                                            <span
-                                                style="width: 32px; height: 32px; background: #ffebee; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-                                                <i class="fab fa-youtube" style="color: #ff0000; font-size: 16px;"></i>
-                                            </span>
-                                            YouTube
-                                        </span>
-                                        <i class="fas fa-chevron-right" style="font-size: 12px; color: #ccc;"></i>
+                                style="font-size: 20px; font-weight: 800; margin-bottom: 25px; color: #1a1a1a;">Kategori</h3>
+                            <div style="display: grid; gap: 12px;">
+                                @php
+                                    $categories = [
+                                        ['name' => 'YouTube', 'icon' => 'fab fa-youtube', 'color' => '#ff0000', 'bg' => '#fff1f0'],
+                                        ['name' => 'Instagram', 'icon' => 'fab fa-instagram', 'color' => '#e1306c', 'bg' => '#fff0f6'],
+                                        ['name' => 'TikTok', 'icon' => 'fab fa-tiktok', 'color' => '#000', 'bg' => '#f5f5f5'],
+                                    ];
+                                @endphp
+
+                                @foreach($categories as $cat)
+                                    <a href="{{ route('projects', ['category' => $cat['name']]) }}" 
+                                       class="category-item {{ request('category') == $cat['name'] ? 'active' : '' }}"
+                                       style="padding: 18px 22px; border-radius: 16px; border: 1px solid #eee; display: flex; align-items: center; justify-content: space-between; text-decoration: none; color: #444; transition: all 0.3s; font-weight: 700;">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div style="width: 36px; height: 36px; background: {{ $cat['bg'] }}; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                                <i class="{{ $cat['icon'] }}" style="color: {{ $cat['color'] }}; font-size: 18px;"></i>
+                                            </div>
+                                            {{ $cat['name'] }}
+                                        </div>
+                                        <i class="fas fa-chevron-right chevron" style="font-size: 12px; opacity: 0.3;"></i>
                                     </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="category-btn"
-                                        style="background: linear-gradient(to right, #ffffff, #f9f9f9); border: 1px solid #eee; padding: 15px 20px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; color: #333; transition: all 0.3s; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
-                                        <span style="display: flex; align-items: center; gap: 10px;">
-                                            <span
-                                                style="width: 32px; height: 32px; background: #fce4ec; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-                                                <i class="fab fa-instagram" style="color: #e1306c; font-size: 16px;"></i>
-                                            </span>
-                                            Instagram
-                                        </span>
-                                        <i class="fas fa-chevron-right" style="font-size: 12px; color: #ccc;"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="category-btn"
-                                        style="background: linear-gradient(to right, #ffffff, #f9f9f9); border: 1px solid #eee; padding: 15px 20px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; color: #333; transition: all 0.3s; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
-                                        <span style="display: flex; align-items: center; gap: 10px;">
-                                            <span
-                                                style="width: 32px; height: 32px; background: #eeeeee; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-                                                <i class="fab fa-tiktok" style="color: #000; font-size: 16px;"></i>
-                                            </span>
-                                            TikTok
-                                        </span>
-                                        <i class="fas fa-chevron-right" style="font-size: 12px; color: #ccc;"></i>
-                                    </a>
-                                </li>
-                            </ul>
+                                @endforeach
+                            </div>
                         </div>
+
+                        <style>
+                            .category-item:hover, .category-item.active {
+                                background: #196164 !important;
+                                color: #fff !important;
+                                border-color: #196164 !important;
+                                transform: translateX(5px);
+                                box-shadow: 0 10px 20px rgba(25, 97, 100, 0.15);
+                            }
+                            .category-item:hover .chevron, .category-item.active .chevron {
+                                opacity: 1 !important;
+                                transform: translateX(3px);
+                            }
+                        </style>
 
                         <style>
                             .category-btn:hover {

@@ -62,6 +62,26 @@
                 </div>
 
                 <div>
+                    <label for="video_url" class="block text-sm font-bold text-gray-700 mb-2">
+                        Video/Content URL 
+                        <span class="text-gray-400 font-normal">(Optional - YouTube, TikTok, atau Instagram)</span>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <input type="url" name="video_url" id="video_url" value="{{ old('video_url') }}"
+                               class="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all font-inter"
+                               placeholder="https://youtube.com/watch?v=... atau https://tiktok.com/...">
+                    </div>
+                    <p class="mt-2 text-xs text-gray-500">
+                        <i class="fab fa-youtube text-red-500 mr-1"></i> YouTube
+                        <i class="fab fa-tiktok ml-3 mr-1"></i> TikTok
+                        <i class="fab fa-instagram text-pink-500 ml-3 mr-1"></i> Instagram
+                    </p>
+                </div>
+
+                <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">Image <span class="text-red-500">*</span></label>
                     
                     <div class="flex items-center justify-center w-full">

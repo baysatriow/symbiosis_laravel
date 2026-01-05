@@ -12,6 +12,7 @@ class Project extends Model
         'category',
         'description',
         'image',
+        'video_url',
         'is_featured',
         'sort_order',
     ];

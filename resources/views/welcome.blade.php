@@ -206,43 +206,66 @@
             <div class="row gx-30">
                 <!-- Youtube Project -->
                 <div class="col-lg-4 col-md-6">
-                    <div class="portfolio-box2">
-                        <div class="portfolio-box2_img">
-                            <img src="{{ $youtubeProject ? asset('storage/' . $youtubeProject->image) : asset('assets/img/portfolio/2-1.jpg') }}" alt="Youtube Project" style="height: 250px; width: 100%; object-fit: cover;">
+                    <div class="portfolio-box2" style="border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: all 0.3s;">
+                        <div class="portfolio-box2_img" style="overflow: hidden;">
+                            <a href="{{ $youtubeProject ? route('projects.show', $youtubeProject->id) : '#' }}">
+                                <img src="{{ $youtubeProject && $youtubeProject->image ? asset('storage/' . $youtubeProject->image) : asset('assets/img/portfolio/2-1.jpg') }}" alt="Youtube Project" style="height: 280px; width: 100%; object-fit: cover; transition: transform 0.5s;">
+                            </a>
                         </div>
-                        <div class="portfolio-box2-details">
-                            <span class="portfolio-box2_subtitle">Youtube Channel</span>
-                            <h4 class="portfolio-box2_title"><a href="{{ route('projects', ['category' => 'Youtube']) }}">{{ $youtubeProject ? $youtubeProject->title : 'Youtube Content' }}</a></h4>
+                        <div class="portfolio-box2-details" style="padding: 25px; background: #fff;">
+                            <span class="portfolio-box2_subtitle" style="color: #196164; font-weight: 700; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Youtube Channel</span>
+                            <h4 class="portfolio-box2_title">
+                                <a href="{{ $youtubeProject ? route('projects.show', $youtubeProject->id) : '#' }}" style="color: #1a1a1a; text-decoration: none; font-weight: 800; font-size: 20px;">
+                                    {{ $youtubeProject ? $youtubeProject->title : 'Youtube Content' }}
+                                </a>
+                            </h4>
                         </div>
                     </div>
                 </div>
 
                 <!-- Instagram Project -->
                 <div class="col-lg-4 col-md-6">
-                    <div class="portfolio-box2">
-                        <div class="portfolio-box2_img">
-                            <img src="{{ $instagramProject ? asset('storage/' . $instagramProject->image) : asset('assets/img/portfolio/2-2.jpg') }}" alt="Instagram Project" style="height: 250px; width: 100%; object-fit: cover;">
+                    <div class="portfolio-box2" style="border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: all 0.3s;">
+                        <div class="portfolio-box2_img" style="overflow: hidden;">
+                            <a href="{{ $instagramProject ? route('projects.show', $instagramProject->id) : '#' }}">
+                                <img src="{{ $instagramProject && $instagramProject->image ? asset('storage/' . $instagramProject->image) : asset('assets/img/portfolio/2-2.jpg') }}" alt="Instagram Project" style="height: 280px; width: 100%; object-fit: cover; transition: transform 0.5s;">
+                            </a>
                         </div>
-                        <div class="portfolio-box2-details">
-                            <span class="portfolio-box2_subtitle">Instagram Feed</span>
-                            <h4 class="portfolio-box2_title"><a href="{{ route('projects', ['category' => 'Instagram']) }}">{{ $instagramProject ? $instagramProject->title : 'Instagram Content' }}</a></h4>
+                        <div class="portfolio-box2-details" style="padding: 25px; background: #fff;">
+                            <span class="portfolio-box2_subtitle" style="color: #196164; font-weight: 700; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Instagram Feed</span>
+                            <h4 class="portfolio-box2_title">
+                                <a href="{{ $instagramProject ? route('projects.show', $instagramProject->id) : '#' }}" style="color: #1a1a1a; text-decoration: none; font-weight: 800; font-size: 20px;">
+                                    {{ $instagramProject ? $instagramProject->title : 'Instagram Content' }}
+                                </a>
+                            </h4>
                         </div>
                     </div>
                 </div>
 
                 <!-- Tiktok Project -->
                 <div class="col-lg-4 col-md-6">
-                    <div class="portfolio-box2">
-                        <div class="portfolio-box2_img">
-                            <img src="{{ $tiktokProject ? asset('storage/' . $tiktokProject->image) : asset('assets/img/portfolio/2-3.jpg') }}" alt="Tiktok Project" style="height: 250px; width: 100%; object-fit: cover;">
+                    <div class="portfolio-box2" style="border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: all 0.3s;">
+                        <div class="portfolio-box2_img" style="overflow: hidden;">
+                            <a href="{{ $tiktokProject ? route('projects.show', $tiktokProject->id) : '#' }}">
+                                <img src="{{ $tiktokProject && $tiktokProject->image ? asset('storage/' . $tiktokProject->image) : asset('assets/img/portfolio/2-3.jpg') }}" alt="Tiktok Project" style="height: 280px; width: 100%; object-fit: cover; transition: transform 0.5s;">
+                            </a>
                         </div>
-                        <div class="portfolio-box2-details">
-                            <span class="portfolio-box2_subtitle">Tiktok Viral</span>
-                            <h4 class="portfolio-box2_title"><a href="{{ route('projects', ['category' => 'Tiktok']) }}">{{ $tiktokProject ? $tiktokProject->title : 'Tiktok Content' }}</a></h4>
+                        <div class="portfolio-box2-details" style="padding: 25px; background: #fff;">
+                            <span class="portfolio-box2_subtitle" style="color: #196164; font-weight: 700; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;">Tiktok Viral</span>
+                            <h4 class="portfolio-box2_title">
+                                <a href="{{ $tiktokProject ? route('projects.show', $tiktokProject->id) : '#' }}" style="color: #1a1a1a; text-decoration: none; font-weight: 800; font-size: 20px;">
+                                    {{ $tiktokProject ? $tiktokProject->title : 'Tiktok Content' }}
+                                </a>
+                            </h4>
                         </div>
                     </div>
                 </div>
             </div>
+            
+            <style>
+                .portfolio-box2:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.12) !important; }
+                .portfolio-box2:hover img { transform: scale(1.1); }
+            </style>
         </div>
     </div>
 
@@ -277,48 +300,102 @@
                     </div>
                 </div>
                 <div class="col-lg-7">
-                    <div class="testiomonial-wrap-2">
-                        <!-- Testimonial Marquee (Single Row) -->
-                        <div class="marquee-wrapper">
-                            <div class="marquee-content">
-                                <!-- Original Set -->
-                                @for($i = 0; $i < 3; $i++)
-                                <div class="marquee-item" style="width: 400px; padding: 0 15px;">
-                                    <div class="testi-box" style="padding: 30px; border-radius: 16px; background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.08); width: 100%;">
-                                        <div class="quote-icon mb-3">
-                                            <img src="{{ asset('assets/img/icon/quote2-1.svg') }}" alt="quote" style="width: 40px;">
-                                        </div>
-                                        <p class="testi-box_text" style="font-size: 15px; line-height: 1.7; color: #333; margin-bottom: 20px;">
-                                            "Symbiosis banyak membantu kami di departemen CSR dalam pendampingan riset dan publikasi program sesuai kebutuhan internal."
-                                        </p>
-                                        <div class="testi-box-profile text-center mt-4">
-                                            <h4 class="testi-profile-title" style="font-size: 16px; margin-bottom: 5px;">Oscar Muda Kusuma</h4>
-                                            <span class="testi-profile-desig" style="font-size: 14px; color: #666; display: block; margin-bottom: 12px;">Senior Comdev PT Pertamina EP Sangatta</span>
-                                            <img src="{{ asset('assets/img/testimonial/testimoni1.png') }}" alt="Oscar Muda Kusuma" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid #eee;">
+                    <div class="testimonial-slider-wrap" x-data="{ 
+                            active: 0,
+                            items: [
+                                {
+                                    text: 'Symbiosis banyak membantu kami di departemen CSR dalam pendampingan riset dan publikasi program sesuai kebutuhan internal.',
+                                    author: 'Oscar Muda Kusuma',
+                                    desig: 'Senior Comdev PT Pertamina EP Sangatta',
+                                    image: '{{ asset('assets/img/testimonial/testimoni1.png') }}'
+                                },
+                                {
+                                    text: 'Layanan konsultasi yang diberikan sangat profesional dan berbasis data, sangat memudahkan kami dalam pengambilan keputusan strategis.',
+                                    author: 'Mitra Bisnis A',
+                                    desig: 'Manager CSR PT Berjaya',
+                                    image: '{{ asset('assets/img/testimonial/testimoni1.png') }}'
+                                },
+                                {
+                                    text: 'Penerapan ESG menjadi lebih terukur dan efisien berkat pendampingan dari tim ahli Symbiosis Indonesia.',
+                                    author: 'Mitra Bisnis B',
+                                    desig: 'Direktur Lingkungan PT Lestari',
+                                    image: '{{ asset('assets/img/testimonial/testimoni1.png') }}'
+                                }
+                            ],
+                            init() {
+                                setInterval(() => {
+                                    this.active = (this.active + 1) % this.items.length;
+                                }, 5000);
+                            },
+                            prev() {
+                                this.active = this.active === 0 ? this.items.length - 1 : this.active - 1;
+                            },
+                            next() {
+                                this.active = (this.active + 1) % this.items.length;
+                            }
+                        }">
+                        
+                        <!-- Slider Container -->
+                        <div class="testi-slider-container" style="position: relative; overflow: hidden; border-radius: 30px;">
+                            <!-- Sliding Track -->
+                            <div class="testi-slider-track" 
+                                 :style="'display: flex; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); transform: translateX(-' + (active * 100) + '%);'">
+                                <template x-for="(item, index) in items" :key="index">
+                                    <div class="testi-slide" style="min-width: 100%; flex-shrink: 0; padding: 10px;">
+                                        <div class="testi-box" style="padding: 45px; border-radius: 24px; background: #fff; box-shadow: 0 20px 60px rgba(0,0,0,0.08); border: 1px solid #f0f0f0;">
+                                            <div class="quote-icon mb-4">
+                                                <img src="{{ asset('assets/img/icon/quote2-1.svg') }}" alt="quote" style="width: 50px; opacity: 0.15;">
+                                            </div>
+                                            <p class="testi-box_text" x-text="item.text" style="font-size: 18px; line-height: 1.9; color: #333; font-style: italic; margin-bottom: 30px; min-height: 100px;">
+                                            </p>
+                                            <div class="testi-box-profile d-flex align-items-center gap-4 mt-4 pt-4" style="border-top: 1px solid #f0f0f0;">
+                                                <img :src="item.image" :alt="item.author" style="width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 3px solid #e0f2f1;">
+                                                <div class="text-start">
+                                                    <h4 class="testi-profile-title" x-text="item.author" style="font-size: 17px; font-weight: 800; margin-bottom: 4px; color: #196164;"></h4>
+                                                    <span class="testi-profile-desig" x-text="item.desig" style="font-size: 13px; color: #888; font-weight: 500;"></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                @endfor
-                                <!-- Duplicate Set -->
-                                @for($i = 0; $i < 3; $i++)
-                                <div class="marquee-item" style="width: 400px; padding: 0 15px;">
-                                    <div class="testi-box" style="padding: 30px; border-radius: 16px; background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.08); width: 100%;">
-                                        <div class="quote-icon mb-3">
-                                            <img src="{{ asset('assets/img/icon/quote2-1.svg') }}" alt="quote" style="width: 40px;">
-                                        </div>
-                                        <p class="testi-box_text" style="font-size: 15px; line-height: 1.7; color: #333; margin-bottom: 20px;">
-                                            "Symbiosis banyak membantu kami di departemen CSR dalam pendampingan riset dan publikasi program sesuai kebutuhan internal."
-                                        </p>
-                                        <div class="testi-box-profile text-center mt-4">
-                                            <h4 class="testi-profile-title" style="font-size: 16px; margin-bottom: 5px;">Oscar Muda Kusuma</h4>
-                                            <span class="testi-profile-desig" style="font-size: 14px; color: #666; display: block; margin-bottom: 12px;">Senior Comdev PT Pertamina EP Sangatta</span>
-                                            <img src="{{ asset('assets/img/testimonial/testimoni1.png') }}" alt="Oscar Muda Kusuma" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid #eee;">
-                                        </div>
-                                    </div>
-                                </div>
-                                @endfor
+                                </template>
                             </div>
                         </div>
+                        
+                        <!-- Navigation & Dots -->
+                        <div class="testi-nav d-flex align-items-center justify-content-between mt-4 px-2">
+                            <!-- Left/Right Arrows -->
+                            <div class="d-flex gap-2">
+                                <button @click="prev()" 
+                                        style="width: 45px; height: 45px; border-radius: 50%; border: 2px solid #e0e0e0; background: #fff; color: #196164; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s;">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button @click="next()" 
+                                        style="width: 45px; height: 45px; border-radius: 50%; border: 2px solid #196164; background: #196164; color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s;">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                            
+                            <!-- Dots Indicator -->
+                            <div class="testi-dots d-flex align-items-center gap-3">
+                                <template x-for="(item, index) in items" :key="index">
+                                    <button @click="active = index" 
+                                            :class="active === index ? 'active' : ''"
+                                            class="testi-dot"
+                                            style="width: 12px; height: 12px; border-radius: 50%; border: 2px solid #196164; background: transparent; cursor: pointer; transition: all 0.3s; padding: 0;">
+                                    </button>
+                                </template>
+                            </div>
+                        </div>
+                        
+                        <style>
+                            .testi-dot.active, .testi-dot:hover {
+                                background: #196164 !important;
+                                transform: scale(1.2);
+                            }
+                            .testi-nav button:hover {
+                                transform: scale(1.05);
+                            }
+                        </style>
                     </div>
                 </div>
             </div>
@@ -502,35 +579,52 @@
     </div>
 
     <!-- CTA Section -->
-    <div class="cta-area-2 bg-theme" style="background-image: url('{{ asset('assets/img/bg/cta_bg_1.png') }}')">
-        <div class="container">
-            <div class="row justify-content-md-between align-items-center flex-row-reverse">
-                <div class="col-lg-5">
-                    <div class="cta2-bg-thumb text-center">
-                        <img style="width: 522px; height: 521px; object-fit: cover; border-radius: 20px;"
-                            src="{{ asset('assets/img/normal/cta-thumb-2-1.jpg') }}" alt="cta">
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="cta-wrap2">
-                        <div class="title-area">
-                            <h2 class="sec-title text-white style2">Hubungi Kami di WhatsApp</h2>
-                            <p class="sec-text text-white">
-                                Ingin tahu lebih banyak tentang layanan dan strategi bisnis kami? Tim kami siap membantu
-                                Anda secara langsung melalui WhatsApp.
-                            </p>
-                        </div>
-                        <div class="text-start mt-4">
-                            <a href="https://wa.me/6285123293135?text=Halo!%20Saya%20tertarik%20untuk%20berdiskusi%20lebih%20lanjut%20tentang%20solusi%20bisnis%20Anda."
-                                target="_blank" class="global-btn"
-                                style="display: inline-flex; align-items: center; gap: 10px; font-size: 18px; padding: 14px 28px; border-radius: 50px; background-color: #25D366; color: #fff; text-decoration: none;">
-                                <i class="fab fa-whatsapp" style="font-size: 22px;"></i>
-                                Chat via WhatsApp
-                            </a>
-                        </div>
+    <div class="cta-area-2" style="position: relative; padding: 120px 0; overflow: hidden; background: #0a2627;">
+        <!-- Dynamic Background Elements -->
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 20% 30%, rgba(25, 97, 100, 0.4) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(16, 185, 129, 0.2) 0%, transparent 50%);"></div>
+        <div style="position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; background: rgba(25, 97, 100, 0.1); border-radius: 50%; filter: blur(80px); animation: float 10s infinite alternate;"></div>
+        <div style="position: absolute; bottom: -50px; left: -50px; width: 300px; height: 300px; background: rgba(52, 211, 153, 0.05); border-radius: 50%; filter: blur(60px); animation: float 15s infinite alternate-reverse;"></div>
+
+        <div class="container" style="position: relative; z-index: 2;">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <div class="cta-content-new" style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); padding: 60px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 30px 60px rgba(0,0,0,0.3);">
+                        <span class="sub-title text-emerald-400 mb-3" style="display: block; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; font-size: 14px;">Siap Berkolaborasi?</span>
+                        <h2 class="sec-title text-white mb-4" style="font-size: 42px; font-weight: 800; line-height: 1.2;">Wujudkan Potensi Bisnis Anda Bersama Kami</h2>
+                        <p class="sec-text text-white/80 mb-5 mx-auto" style="font-size: 18px; max-width: 600px; line-height: 1.7;">
+                            Diskusikan kebutuhan strategi bisnis keberlanjutan perusahaan Anda. Tim ahli kami siap membantu Anda mencapai target dengan solusi yang terukur.
+                        </p>
+                        
+                        <a href="https://wa.me/6285123293135?text=Halo!%20Saya%20tertarik%20untuk%20berdiskusi%20lebih%20lanjut%20tentang%20solusi%20bisnis%20Anda."
+                            target="_blank" class="whatsapp-btn-shine" 
+                            style="display: inline-flex; align-items: center; gap: 15px; font-size: 20px; font-weight: 800; padding: 22px 45px; border-radius: 20px; background: #25D366; color: #fff; text-decoration: none; box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4); position: relative; overflow: hidden; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+                            <i class="fab fa-whatsapp" style="font-size: 26px;"></i>
+                            <span>Chat Via WhatsApp</span>
+                            <!-- Shine Effect -->
+                            <div class="shine"></div>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
+
+        <style>
+            @keyframes float {
+                from { transform: translateY(0) scale(1); }
+                to { transform: translateY(30px) scale(1.1); }
+            }
+            .whatsapp-btn-shine:hover { transform: translateY(-5px); box-shadow: 0 25px 50px rgba(37, 211, 102, 0.6); }
+            .whatsapp-btn-shine .shine {
+                position: absolute; top: -100%; left: -100%; width: 200%; height: 200%;
+                background: linear-gradient(135deg, transparent, rgba(255,255,255,0.4), transparent);
+                transform: rotate(45deg);
+                animation: shine 3s infinite;
+            }
+            @keyframes shine {
+                0% { left: -100%; top: -100%; }
+                20% { left: 100%; top: 100%; }
+                100% { left: 100%; top: 100%; }
+            }
+        </style>
     </div>
 @endsection
